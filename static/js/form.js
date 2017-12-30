@@ -7,19 +7,22 @@ $(document).ready(function() {
 				username : $('#usernameInput').val(),
 			},
 			type : 'POST',
-			url : '/process'
+			url : '/processuser'
 		})
 		.done(function(data) {
 
 			if (data.error) {
 				$('#errorAlert').text(data.error).show();
 				$('#successAlert').hide();
+				$('#nextButton').hide();
 			}
 			else {
-				$('#successAlert').text((function() {
-					return "Hello " + ( data.username );
+				$('#successAlert').html((function() {
+					return 'Hello ' + (data.username) + '! You have ' +
+					(data.numgames) + ' games in your collection. ';
 				  })).show();
 				$('#errorAlert').hide();
+				$('#nextButton').show();
 			}
 
 		});
