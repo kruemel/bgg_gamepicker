@@ -5,7 +5,7 @@ $(document).ready(function() {
 		$.ajax({
 			data : {
 				name : $('#nameInput').val(),
-				email : $('#emailInput').val()
+				// email : $('#emailInput').val()
 			},
 			type : 'POST',
 			url : '/process'
@@ -17,7 +17,10 @@ $(document).ready(function() {
 				$('#successAlert').hide();
 			}
 			else {
-				$('#successAlert').text(data.name).show();
+				// $('#successAlert').text(data.name).show();
+				$('#successAlert').text((function() {
+					return "Hello " + ( data.name );
+				  })).show();
 				$('#errorAlert').hide();
 			}
 
