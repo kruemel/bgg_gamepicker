@@ -9,12 +9,10 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
 
-    # email = request.form['email']
-    name = request.form['name']
+    username = request.form['username']
 
-    # if name and email:
-    if name:
-        return jsonify({'name' : name})
+    if username:
+        return jsonify({'username' : username})
     return jsonify({'error' : 'Missing data!'})
 
 if __name__ == '__main__':
