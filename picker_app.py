@@ -5,17 +5,28 @@ from boardgamegeek import BGGClient, exceptions
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/gamepicker'
+# on linux:
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://kathrin@dlocalhost/gamepicker'
+
+# on windows:
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://kathrin:password@localhost:5433/gamepicker'
 db = SQLAlchemy(app)
 
 # db Models
 class Game(db.Model):
     gid = db.Column(db.Integer, primary_key=True)
-    name_collection = db.Column(db.String(100), nullable=False)
+    name_col = db.Column(db.String(100), nullable=False)
     name_en = db.Column(db.String(100), nullable=False)
-    max_players = db.Column(db.Integer)
-    min_players = db.Column(db.Integer)
+    authors = db.Column(ARRAY(db.String(40)))
+    maxplayers = db.Column(db.Integer)
+    minplayers = db.Column(db.Integer)
     max_playing_time = db.Column(db.Integer)
+    min_playing_time = db.Column(db.Integer)
+    best_playnum = db.Column(ARRAY(db.Integer))
+    not_recom_playnum = db.Column(ARRAY(db.Integer))
+    description = db.Column(db.Text)
+    imageurl = db.Column(db.String(200))
+    mechanics = db.Column(ARRAY(db.String(20)))
     average_weight = db.Column(db.Float)
     best_playnum = db.Column(ARRAY(db.Integer))
 

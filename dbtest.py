@@ -1,7 +1,7 @@
 from sqlalchemy import *
 from sqlalchemy.dialects import postgresql
 
-db = create_engine('postgresql://kathrin@localhost/gamepicker')
+db = create_engine('postgresql://kathrin:password@localhost:5433/gamepicker')
 metadata = MetaData(db)
 
 games = Table('games', metadata,
