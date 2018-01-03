@@ -14,3 +14,5 @@ Werkzeug==0.13
 SQLAlchemy==1.2.0
 psycopg2==2.7.3.2
 Flask-SQLAlchemy==2.3.2
+Flask-WTF==0.14.2
+WTForms==2.1

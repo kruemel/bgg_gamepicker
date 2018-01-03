@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
-from boardgamegeek import BGGClient, exceptions
+from flask_wtf import Form 
+from wtforms import StringField, IntegerField 
+from wtforms.validators import InputRequired, Email, Length, AnyOf
 
 app = Flask(__name__)
 
@@ -26,9 +28,8 @@ class Game(db.Model):
     not_recom_playnum = db.Column(ARRAY(db.Integer))
     description = db.Column(db.Text)
     imageurl = db.Column(db.String(200))
-    mechanics = db.Column(ARRAY(db.String(20)))
+    mechanics = db.Column(ARRAY(db.String(60)))
     average_weight = db.Column(db.Float)
-    best_playnum = db.Column(ARRAY(db.Integer))
 
 class GameQuery(db.Model):
     qid = db.Column(db.Integer, primary_key=True)
@@ -37,24 +38,28 @@ class GameQuery(db.Model):
     max_playtime = db.Column(db.Integer)
     weight = db.Column(db.Integer)
 
+# class GameQueryForm(Form):
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('userform.html')
+	# form = LoginForm()
+	# if form.validate_on_submit():
+		# return 'Form Successfully Submitted!'
+    return render_template('index.html')
 
-@app.route('/processuser', methods=['POST'])
-def process():
-    username = request.form['username']
+# @app.route('/processuser', methods=['POST'])
+# def process():
+#     username = request.form['username']
     
-    if username:
-        bgg = BGGClient()
-        try:
-            collection = bgg.collection(username, exclude_subtype='boardgameexpansion', own=True, wishlist=None)
-            numgames = len(collection)
-            return jsonify({'username' : username, 'numgames': numgames})
-        except:
-            return jsonify({'error' : 'Oops! An error occured. Most likely I could not find this username..'})
-    return jsonify({'error' : 'Missing data!'})
+#     if username:
+#         bgg = BGGClient()
+#         try:
+#             collection = bgg.collection(username, exclude_subtype='boardgameexpansion', own=True, wishlist=None)
+#             numgames = len(collection)
+#             return jsonify({'username' : username, 'numgames': numgames})
+#         except:
+#             return jsonify({'error' : 'Oops! An error occured. Most likely I could not find this username..'})
+#     return jsonify({'error' : 'Missing data!'})
 
 
 if __name__ == '__main__':
