@@ -10,7 +10,7 @@
  .bootstrap-touchspin .input-group-btn-vertical {
     position: relative;
     white-space: nowrap;
-    width: 5%;
+    width: 2%;
     vertical-align: middle;
     display: table-cell;
   }
@@ -49,4 +49,11 @@
     padding: 10px 0px;
     padding-right: 10px;
     padding-left: 10px;
+  }
+
+  .box-header {
+    display:block;
+    width: 20em;
+    margin-left: auto;
+    margin-right: auto;
   }
